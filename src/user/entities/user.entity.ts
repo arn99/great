@@ -1,9 +1,8 @@
-import { Panier } from './../../panier/entities/panier.entity';
-import { Categorie } from './../../categorie/entities/categorie.entity';
-import { Actualite } from './../../actualite/entities/actualite.entity';
-import { Chat } from './../../chat/entities/chat.entity';
+import { Panier } from 'src/panier/entities/panier.entity';
+import { Categorie } from 'src/categorie/entities/categorie.entity';
+import { Actualite } from 'src/actualite/entities/actualite.entity';
+import { Chat } from 'src/chat/entities/chat.entity';
 import { Item } from 'src/item/entities/item.entity';
-import { Photo } from 'src/photo/entities/photo.entity';
 import {
   BaseEntity,
   Entity,
@@ -30,17 +29,9 @@ export class User extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({
-    name: 'created_at',
-    type: Date,
-    default: () => new Date(),
-  })
+  @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   createdAt: Date;
-  @UpdateDateColumn({
-    name: 'updated_at',
-    type: Date,
-    default: () => new Date(),
-  })
+  @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
   updatedAt: Date;
 
   @Column({ name: 'username', unique: true, type: 'varchar', length: 150 })
@@ -58,7 +49,7 @@ export class User extends BaseEntity {
   @Column({ default: true })
   isActive: boolean;
 
-  @Column()
+  @Column({ default: null })
   photo: string;
 
   @Column({
@@ -77,9 +68,7 @@ export class User extends BaseEntity {
   @OneToMany(() => Actualite, (actualite) => actualite.user)
   actualites: Actualite[];
 
-  @ManyToMany(() => Chat, (chat) => chat.users, {
-    cascade: true,
-  })
+  @ManyToMany(() => Chat, (chat) => chat.users, {})
   @JoinTable()
   chats: Chat[];
 

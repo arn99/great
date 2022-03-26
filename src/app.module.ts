@@ -10,6 +10,7 @@ import { CategorieModule } from './categorie/categorie.module';
 import { ChatModule } from './chat/chat.module';
 import { PhotoModule } from './photo/photo.module';
 import { PanierModule } from './panier/panier.module';
+import { JwtModule } from '@nestjs/jwt';
 @Module({
   imports: [
     ConfigModule.forRoot(),
@@ -20,9 +21,21 @@ import { PanierModule } from './panier/panier.module';
       username: process.env.DB_USERNAME,
       password: process.env.DB_PASSWORD || '',
       database: process.env.DB_DATABASE,
-      entities: [__dirname + '/**/*.entity{.ts,.js}'],
-      synchronize: false,
+      autoLoadEntities: true,
+      //entities: [__dirname + '/**/*.entity{.ts,.js}'],
+      synchronize: true,
+      /* migrationsTableName: 'migrations',
+      migrations: ['migration/*.js'],
+      cli: {
+        migrationsDir: 'migration',
+      }, */
     }),
+
+    /* PassportModule,
+    JwtModule.register({
+      secret: jwtConstants.secret,
+      signOptions: { expiresIn: '60s' },
+    }), */
     UserModule,
     ItemModule,
     ActualiteModule,
@@ -33,5 +46,6 @@ import { PanierModule } from './panier/panier.module';
   ],
   controllers: [AppController],
   providers: [AppService],
+  exports: [],
 })
 export class AppModule {}

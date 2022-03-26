@@ -4,11 +4,13 @@ import { Item } from 'src/item/entities/item.entity';
 import { Repository } from 'typeorm';
 import { CreateCategorieDto } from './dto/create-categorie.dto';
 import { UpdateCategorieDto } from './dto/update-categorie.dto';
+import { Categorie } from './entities/categorie.entity';
 
 @Injectable()
 export class CategorieService {
   constructor(
-    @InjectRepository(Item) private readonly repository: Repository<Item>,
+    @InjectRepository(Categorie)
+    private readonly repository: Repository<Categorie>,
   ) {}
   create(createCategorieDto: CreateCategorieDto) {
     const categorie = this.repository.create(createCategorieDto);

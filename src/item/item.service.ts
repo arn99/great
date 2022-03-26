@@ -1,6 +1,6 @@
+import { Item } from './entities/item.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateItemDto } from './dto/create-item.dto';
 import { UpdateItemDto } from './dto/update-item.dto';
@@ -8,7 +8,7 @@ import { UpdateItemDto } from './dto/update-item.dto';
 @Injectable()
 export class ItemService {
   constructor(
-    @InjectRepository(User) private readonly repository: Repository<User>,
+    @InjectRepository(Item) private readonly repository: Repository<Item>,
   ) {}
   create(createItemDto: CreateItemDto) {
     const item = this.repository.create(createItemDto);

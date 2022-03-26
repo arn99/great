@@ -1,6 +1,6 @@
+import { Actualite } from './entities/actualite.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
-import { User } from 'src/user/entities/user.entity';
 import { Repository } from 'typeorm';
 import { CreateActualiteDto } from './dto/create-actualite.dto';
 import { UpdateActualiteDto } from './dto/update-actualite.dto';
@@ -8,7 +8,8 @@ import { UpdateActualiteDto } from './dto/update-actualite.dto';
 @Injectable()
 export class ActualiteService {
   constructor(
-    @InjectRepository(User) private readonly repository: Repository<User>,
+    @InjectRepository(Actualite)
+    private readonly repository: Repository<Actualite>,
   ) {}
   create(createActualiteDto: CreateActualiteDto) {
     const actualite = this.repository.create(createActualiteDto);

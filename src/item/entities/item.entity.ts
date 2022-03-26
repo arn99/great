@@ -19,17 +19,9 @@ export class Item extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({
-    name: 'created_at',
-    type: Date,
-    default: () => new Date(),
-  })
+  @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   createdAt: Date;
-  @UpdateDateColumn({
-    name: 'updated_at',
-    type: Date,
-    default: () => new Date(),
-  })
+  @UpdateDateColumn({ name: 'updated_at' }) 'updated_at': Date;
   updatedAt: Date;
 
   @Column({ default: true })

@@ -5,20 +5,15 @@ import {
   Column,
   Entity,
   ManyToOne,
-  JoinTable,
-  ManyToMany,
+  BaseEntity,
 } from 'typeorm';
 
 @Entity()
-export class Categorie {
+export class Categorie extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({
-    name: 'created_at',
-    type: Date,
-    default: () => new Date(),
-  })
+  @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   @Column({ name: 'nom', type: 'varchar', length: 150 })
   nom: string;
 

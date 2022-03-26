@@ -1,26 +1,41 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
 import { CreatePhotoDto } from './dto/create-photo.dto';
 import { UpdatePhotoDto } from './dto/update-photo.dto';
+import { Photo } from './entities/photo.entity';
 
 @Injectable()
 export class PhotoService {
+  constructor(
+    @InjectRepository(Photo) private readonly repository: Repository<Photo>,
+  ) {}
   create(createPhotoDto: CreatePhotoDto) {
-    return 'This action adds a new photo';
+    const photo = this.repository.create(createPhotoDto);
+    return this.repository.save(photo);
   }
 
   findAll() {
-    return `This action returns all photo`;
+    return this.repository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} photo`;
+  findOne(id: string) {
+    return this.repository.findOne(id);
   }
 
-  update(id: number, updatePhotoDto: UpdatePhotoDto) {
-    return `This action updates a #${id} photo`;
+  async update(id: string, updatePhotoDto: UpdatePhotoDto) {
+    const photo = await this.repository.preload({
+      id: id,
+      ...updatePhotoDto,
+    });
+    if (!photo) {
+      throw new NotFoundException(`Photo ${id} not found`);
+    }
+    return this.repository.save(photo);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} photo`;
+  async remove(id: string) {
+    const photo = await this.findOne(id);
+    return this.repository.remove(photo);
   }
 }

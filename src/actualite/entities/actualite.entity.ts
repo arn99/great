@@ -5,18 +5,15 @@ import {
   Column,
   Entity,
   ManyToOne,
+  BaseEntity,
 } from 'typeorm';
 
 @Entity()
-export class Actualite {
+export class Actualite extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({
-    name: 'created_at',
-    type: Date,
-    default: () => new Date(),
-  })
+  @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   createdAt: Date;
 
   @Column({ default: true })

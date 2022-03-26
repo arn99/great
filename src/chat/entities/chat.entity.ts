@@ -6,18 +6,15 @@ import {
   Entity,
   ManyToMany,
   JoinTable,
+  BaseEntity,
 } from 'typeorm';
 
 @Entity()
-export class Chat {
+export class Chat extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({
-    name: 'created_at',
-    type: Date,
-    default: () => new Date(),
-  })
+  @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   createdAt: Date;
 
   @Column({ name: 'description', type: 'varchar', length: 255 })

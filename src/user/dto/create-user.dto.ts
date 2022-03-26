@@ -1,6 +1,6 @@
 import { UserRole } from './../entities/user.entity';
 import { IsString, IsNotEmpty, IsOptional, IsEnum } from 'class-validator';
-import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
+import { ApiProperty } from '@nestjs/swagger';
 export class CreateUserDto {
   @ApiProperty({ example: 'rams' })
   @IsString()

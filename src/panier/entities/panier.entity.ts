@@ -4,17 +4,16 @@ import {
   CreateDateColumn,
   JoinTable,
   ManyToMany,
+  BaseEntity,
+  Entity,
 } from 'typeorm';
 
-export class Panier {
+@Entity()
+export class Panier extends BaseEntity {
   @PrimaryGeneratedColumn('uuid')
   id: string;
 
-  @CreateDateColumn({
-    name: 'created_at',
-    type: Date,
-    default: () => new Date(),
-  })
+  @CreateDateColumn({ name: 'created_at' }) 'created_at': Date;
   createdAt: Date;
   @ManyToMany(() => Item)
   @JoinTable()
