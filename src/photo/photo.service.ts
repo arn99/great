@@ -1,3 +1,4 @@
+import { Item } from 'src/item/entities/item.entity';
 import { Injectable, NotFoundException } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
@@ -21,6 +22,12 @@ export class PhotoService {
 
   findOne(id: string) {
     return this.repository.findOne(id);
+  }
+  findByItem(id: Item) {
+    return this.repository.findOne({
+      where: { item: id },
+      relations: ['photos'],
+    });
   }
 
   async update(id: string, updatePhotoDto: UpdatePhotoDto) {

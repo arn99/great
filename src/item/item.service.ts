@@ -16,11 +16,14 @@ export class ItemService {
   }
 
   findAll() {
-    return this.repository.find();
+    return this.repository.find({ relations: ['photos'] });
   }
 
   findOne(id: string) {
-    return this.repository.findOne(id);
+    return this.repository.findOne({
+      where: { id: id },
+      relations: ['photos'],
+    });
   }
 
   async update(id: string, updateItemDto: UpdateItemDto) {

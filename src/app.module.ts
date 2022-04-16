@@ -1,3 +1,4 @@
+import { FilesController } from './files/files.controller';
 import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { AppController } from './app.controller';
@@ -11,8 +12,12 @@ import { ChatModule } from './chat/chat.module';
 import { PhotoModule } from './photo/photo.module';
 import { PanierModule } from './panier/panier.module';
 import { JwtModule } from '@nestjs/jwt';
+import { MulterModule } from '@nestjs/platform-express';
 @Module({
   imports: [
+    MulterModule.register({
+      dest: './files',
+    }),
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: 'mysql',
@@ -44,7 +49,7 @@ import { JwtModule } from '@nestjs/jwt';
     PhotoModule,
     PanierModule,
   ],
-  controllers: [AppController],
+  controllers: [AppController, FilesController],
   providers: [AppService],
   exports: [],
 })
